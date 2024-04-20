@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  database:
+    env_file:
+      - .env
+    build:
+      context: .      
+      dockerfile: Dockerfile
+    ports:
+      - '3306:3306'
+    volumes:
+      - database-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  database-data: ~
+
+networks:
+  default:
+    name: fullstack-net
+    external: true
